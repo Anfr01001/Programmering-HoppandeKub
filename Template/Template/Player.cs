@@ -7,10 +7,9 @@ using System.Collections.Generic;
 
 namespace Template
 {
-    class Player
+    class Player: BasBlock
     {
-        Vector2 position;
-        Texture2D texture;
+
         Vector2 velocity;
         const float GRAVITY = 9.82f;
         Rectangle hitbox;
@@ -21,10 +20,9 @@ namespace Template
         bool Hopp = true;
 
 
-        public Player(Texture2D texture, Vector2 position, List<Block> BlockLista)
+        public Player(Texture2D texture, Vector2 position, List<Block> BlockLista) : base (position, texture)
         {
-            this.position = position;
-            this.texture = texture;
+
             this.BlockLista = BlockLista;
         }
 

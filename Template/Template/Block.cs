@@ -7,20 +7,18 @@ using System.Collections.Generic;
 
 namespace Template
 {
-    class Block
+    class Block: BasBlock
     {
-        Vector2 position;
-        Texture2D texture;
+
         int size;
 
         List<Block> BlockLista;
 
         Rectangle hitbox;
 
-        public Block(Texture2D texture, Vector2 position, int size, List<Block> BlockLista)
+        public Block(Texture2D texture, Vector2 position, int size, List<Block> BlockLista) : base (position, texture)
         {
-            this.position = position;
-            this.texture = texture;
+
             this.size = size;
             this.BlockLista = BlockLista;
 
