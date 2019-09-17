@@ -14,11 +14,8 @@ namespace Template
         const float GRAVITY = 9.82f;
         Rectangle hitbox;
         List<Block> BlockLista;
-        double SenasteHopp;
 
-
-        bool Hopp = true;
-
+        bool Hopp = false;
 
         public Player(Texture2D texture, Vector2 position, List<Block> BlockLista) : base (position, texture)
         {
@@ -26,7 +23,7 @@ namespace Template
             this.BlockLista = BlockLista;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
 
             hitbox = new Rectangle((int)position.X, (int)position.Y, 50, 50);
@@ -44,18 +41,20 @@ namespace Template
                 velocity.Y = -5;
                 position.Y -= 5;
                 Hopp = false;
-                SenasteHopp = gameTime.ElapsedGameTime.TotalSeconds;
             }
 
 
             velocity.Y += GRAVITY * (float)gameTime.ElapsedGameTime.TotalSeconds;
             foreach (Block block in BlockLista)
             {
-                if (hitbox.Intersects(block.GetBlockHitbox()))
-                {
-                    velocity.Y = 0;
-                    Hopp = true;
-                }
+
+                    if (hitbox.Intersects(block.GetBlockHitbox()))
+                    {
+                        velocity.Y = 0;
+                        Hopp = true;
+                    } 
+
+                
 
             }
             
@@ -65,7 +64,7 @@ namespace Template
 
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if (Hopp)
             {

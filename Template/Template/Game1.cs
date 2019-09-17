@@ -5,9 +5,7 @@ using System.Collections.Generic;
 
 namespace Template
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
+
     public class Game1 : Game
     {
         GraphicsDeviceManager graphics;
@@ -35,12 +33,7 @@ namespace Template
             Content.RootDirectory = "Content";
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
@@ -48,13 +41,10 @@ namespace Template
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
+
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
+            
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             CreatePixel();
@@ -64,29 +54,27 @@ namespace Template
             player = new Player(Pixel, new Vector2(300, 0), BlockLista);
 
 
-            // TODO: use this.Content to load your game content here
+            
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// game-specific content.
-        /// </summary>
+
         protected override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             player.Update(gameTime);
+
+            foreach (Block block in BlockLista)
+            {
+                block.Update(gameTime);
+            }
 
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {
@@ -95,20 +83,17 @@ namespace Template
                 BlockLista.Add(new Block(Pixel, MousePos, 200, BlockLista));
             }
 
-            //if (Mouse.GetState().LeftButton.is)
-            // TODO: Add your update logic here
+
+
 
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
             player.Draw(spriteBatch);
 

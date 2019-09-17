@@ -16,6 +16,11 @@ namespace Template
 
         Rectangle hitbox;
 
+        float transperancy = 255;
+        float ChangeRateTrans = 70;
+
+
+
         public Block(Texture2D texture, Vector2 position, int size, List<Block> BlockLista) : base (position, texture)
         {
 
@@ -30,15 +35,20 @@ namespace Template
             return hitbox;
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            transperancy -= ChangeRateTrans * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            if (transperancy < 0)
+            {
+                hitbox.X = 9999;
+            }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
 
-                spriteBatch.Draw(texture, hitbox, Color.Green);
+            spriteBatch.Draw(texture, hitbox, new Color(Color.Green, (int)transperancy));
 
         }
     }

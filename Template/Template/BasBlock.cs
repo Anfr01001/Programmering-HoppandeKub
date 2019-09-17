@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Template
 {
-    class BasBlock
+    abstract class BasBlock
     {
 
         protected Vector2 position;
@@ -17,6 +17,10 @@ namespace Template
             this.position = position;
             this.texture = texture;
         }
+
+        public abstract void Update(GameTime gameTime);
+
+        public abstract void Draw(SpriteBatch spriteBatch);
 
     }
 }
